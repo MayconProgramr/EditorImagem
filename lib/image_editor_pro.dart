@@ -135,19 +135,17 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                   screenshotController
                       .capture(
                           delay: Duration(milliseconds: 500), pixelRatio: 1.5)
-                      .then((File image) async {
-                    //print("Capture Done");
-                    setState(() {
-                      _imageFile = image;
-                    });
+                      .then((binaryIntList) async {                    
 
                     final paths = widget.pathSave ?? await getTemporaryDirectory();
                     final name = widget.nameSave ?? DateTime.now().millisecondsSinceEpoch.toString();
                     
                     print("local salvo: ${paths.path}");
 
-                    image.copy(paths.path +'/' + name.toString() + '.jpg');
-                    Navigator.pop(context, image);
+                    final file = await File('${paths.path}/' + name.toString() + '.jpg').create();
+                    file.writeAsBytesSync(binaryIntList);
+
+                    Navigator.pop(context, file);
                   }).catchError((onError) {
                     print(onError);
                   });
@@ -384,6 +382,8 @@ class _ImageEditorProState extends State<ImageEditorPro> {
               )            );
   }
 
+  final picker = ImagePicker();
+  
   void bottomsheets() {
     openbottomsheet = true;
     setState(() {});
@@ -419,16 +419,13 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                               IconButton(
                                   icon: Icon(Icons.photo_library),
                                   onPressed: () async {
-                                    var image = await ImagePicker.pickImage(
-                                        source: ImageSource.gallery);
-                                    var decodedImage =
-                                        await decodeImageFromList(
-                                            image.readAsBytesSync());
+                                    var image = await picker.getImage(source: ImageSource.camera);
+                                    var decodedImage = await decodeImageFromList(File(image.path).readAsBytesSync());
 
                                     setState(() {
                                       height = decodedImage.height as double;
                                       width = decodedImage.width as double;
-                                      _image = image;
+                                      _image = File(image.path);
                                     });
                                     setState(() => _controller.clear());
                                     Navigator.pop(context);
@@ -449,15 +446,13 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                             IconButton(
                                 icon: Icon(Icons.camera_alt),
                                 onPressed: () async {
-                                  var image = await ImagePicker.pickImage(
-                                      source: ImageSource.camera);
-                                  var decodedImage = await decodeImageFromList(
-                                      image.readAsBytesSync());
+                                  var image = await picker.getImage(source: ImageSource.gallery);
+                                  var decodedImage = await decodeImageFromList(File(image.path).readAsBytesSync());                                  
 
                                   setState(() {
                                     height = decodedImage.height as double;
                                     width = decodedImage.width as double;
-                                    _image = image;
+                                    _image = File(image.path);
                                   });
                                   setState(() => _controller.clear());
                                   Navigator.pop(context);
