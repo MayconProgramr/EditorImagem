@@ -163,11 +163,13 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                 child: Stack(
                   alignment: AlignmentDirectional.topStart,
                   children: <Widget>[
-                    Image.file(
-                      widget.defaultImage,
-                      //fit: BoxFit.cover,
-                    ),
-                    Positioned.fill(
+                    widget.defaultImage != null
+                    ? Image.file(
+                        widget.defaultImage,
+                        //fit: BoxFit.cover,
+                      )
+                    : Image.asset("assets/capa25463.jpeg")
+                    ,Positioned.fill(
                       child: RepaintBoundary(
                         key: globalKey,
                         child: Center(
@@ -186,10 +188,13 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                 },
                                 child: Signature(
                                     controller: _controller,
-                                    backgroundColor: _colorSig))),
+                                    backgroundColor: Colors.transparent,// _colorSig
+                                  )
+                                )
+                              ),
                       ),
                     ),
-                    TextButton(
+                    /*TextButton(
                       child: Text('teste'),
                       onPressed: () {
                         setState(() {
@@ -200,7 +205,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                           }
                           _changeColor = !_changeColor;
                         });
-                      }),
+                      }),*/
                     Positioned.fill(
                       child: Stack(
                         children: multiwidget.asMap().entries.map((f) {
