@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TextEditor extends StatefulWidget {
+
+  final Color appBarColor;
+  final Color bottomColor;
+
+  TextEditor({this.appBarColor, this.bottomColor});
+
   @override
   _TextEditorState createState() => _TextEditorState();
 }
@@ -13,7 +19,7 @@ class _TextEditorState extends State<TextEditor> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: widget.appBarColor,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -49,7 +55,7 @@ class _TextEditorState extends State<TextEditor> {
                     Navigator.pop(context,name.text);
                   }, 
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: widget.bottomColor,
                     padding: EdgeInsets.all(15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)

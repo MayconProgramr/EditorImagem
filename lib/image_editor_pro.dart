@@ -218,6 +218,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                       return Sliders(
                                         size: f.key,
                                         sizevalue: fontsize[f.key].toDouble(),
+                                        tipo: "emoji",
                                       );
                                     });
                                     setState(() {});
@@ -243,6 +244,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                           return Sliders(
                                             size: f.key,
                                             sizevalue: fontsize[f.key].toDouble(),
+                                            tipo: "texto",
                                           );
                                         });
                                       },
@@ -326,7 +328,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                         final value = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TextEditor()));
+                                builder: (context) => TextEditor(appBarColor: widget.appBarColor, bottomColor: widget.bottomBarColor,)));
                         if (value.toString().isEmpty || value == null ) {
                           print("true");
                         } else {
@@ -517,8 +519,9 @@ class _SignatState extends State<Signat> {
 class Sliders extends StatefulWidget {
   final int size;
   final sizevalue;
+  final String tipo;
 
-  const Sliders({Key key, this.size, this.sizevalue}) : super(key: key);
+  const Sliders({Key key, this.size, this.sizevalue, this.tipo}) : super(key: key);
 
   @override
   _SlidersState createState() => _SlidersState();
@@ -535,14 +538,19 @@ class _SlidersState extends State<Sliders> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 180,
+        height: widget.tipo != "emoji" ? 180 : 150,
         child: Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Stack(
                 children: [
-                  Center(child: Text("Tamanho e Cor", style: TextStyle(fontSize: 18),)),
+                  Center(
+                    child: Text(
+                      widget.tipo != "emoji" ? "Tamanho e Cor" : "Tamanho", 
+                      style: TextStyle(fontSize: 18),
+                    )
+                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: InkWell(
@@ -578,20 +586,24 @@ class _SlidersState extends State<Sliders> {
             Divider(
               height: 1,
             ),
-            SizedBox(height: 20),
-            BarColorPicker(
-              width: MediaQuery.of(context).size.width * 0.90,
-              thumbColor: Colors.white,
-              cornerRadius: 10,
-              pickMode: PickMode.Color,
-              initialColor: Colors.black,
-              colorListener: (int value) {
-                setState(() {
-                  fontColor[widget.size] = Color(value);
-                });
-              }
-            ),
-            SizedBox(height: 20),
+            widget.tipo != "emoji"
+            ? SizedBox(height: 20)
+            : Container()
+            ,widget.tipo != "emoji"
+            ? BarColorPicker(
+                width: MediaQuery.of(context).size.width * 0.90,
+                thumbColor: Colors.white,
+                cornerRadius: 10,
+                pickMode: PickMode.Color,
+                initialColor: Colors.black,
+                colorListener: (int value) {
+                  setState(() {
+                    fontColor[widget.size] = Color(value);
+                  });
+                }
+              )
+            : Container()
+            ,SizedBox(height: 20),
             Slider(
                 value: slider,
                 min: 0.0,
