@@ -19,6 +19,12 @@ class _TextEditorState extends State<TextEditor> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+        ),
         backgroundColor: widget.appBarColor,
       ),
       body: SingleChildScrollView(

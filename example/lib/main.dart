@@ -47,15 +47,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Image Editor Pro example'),
+        title: const Text('Editor de Imagem'),
 
       ),
       body: _image == null ?
       Center(
-        child:  RaisedButton(onPressed: (){
+        child:  ElevatedButton(onPressed: (){
           getimageditor();
 
-        },child: new Text("Open Editor"),),
+        },child: new Text("Abrir editor"),),
 
       )
           : Center(

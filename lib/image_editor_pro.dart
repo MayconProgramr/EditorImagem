@@ -127,6 +127,12 @@ class _ImageEditorProState extends State<ImageEditorPro> {
         backgroundColor: Colors.grey,
         key: scaf,
         appBar: new AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+          ),
           actions: <Widget>[
             new TextButton(
                 child: new Text("Salvar", style: TextStyle(color: Colors.white),),
