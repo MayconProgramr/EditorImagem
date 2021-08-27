@@ -39,8 +39,9 @@ class ImageEditorPro extends StatefulWidget {
   final File defaultImage;
   final Directory pathSave;
   final String nameSave;
+  final Color backgroundScaffold;
 
-  ImageEditorPro({this.appBarColor, this.bottomBarColor, this.defaultImage, this.pathSave, this.nameSave,});
+  ImageEditorPro({this.appBarColor, this.bottomBarColor, this.defaultImage, this.pathSave, this.nameSave, this.backgroundScaffold = Colors.grey,});
 
   @override
   _ImageEditorProState createState() => _ImageEditorProState();
@@ -124,7 +125,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
   Widget build(BuildContext context) {    
 
     return Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: widget.backgroundScaffold,
         key: scaf,
         appBar: new AppBar(
           leading: IconButton(
