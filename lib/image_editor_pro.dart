@@ -152,7 +152,8 @@ class _ImageEditorProState extends State<ImageEditorPro> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      child: Scaffold(
         backgroundColor: widget.backgroundScaffold,
         key: scaf,
         appBar: new AppBar(
@@ -421,7 +422,6 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                           multiwidget.add(value);
                           howmuchwidgetis++;
                         }
-                        setState(() {});
                       },
                     ),
                     TextButton(
@@ -444,13 +444,15 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                               return Emojies();
                             });
                         getemojis.then((value) {
-                          if (value != null) {
+                          if (value.toString().isEmpty || value == null) {
+                            print("emoji vazio");
+                          }else{
                             type.add(1);
                             fontsize.add(40);
                             offsets.add(Offset.zero);
+                            fontColor.add(Colors.black);
                             multiwidget.add(value);
                             howmuchwidgetis++;
-                            setState(() {});
                           }
                         });
                       },
@@ -473,6 +475,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                         type.clear();
                         fontsize.clear();
                         offsets.clear();
+                        fontColor.clear();
                         multiwidget.clear();
                         howmuchwidgetis = 0;
                         setState(() {});
@@ -480,8 +483,15 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     ),
                   ],
                 ),
-              ));
+              )), 
+      onWillPop:  _willPopCallback);
   }
+
+  Future<bool> _willPopCallback() async {
+   // await showDialog or Show add banners or whatever
+   // then
+   return Future.value(true);
+}
 
   final picker = ImagePicker();
 
@@ -773,7 +783,7 @@ class _SlidersState extends State<Sliders> {
                 children: [
                   Center(
                       child: Text(
-                    widget.tipo != "emoji" ? "Tamanho e Cor" : "Tamanho",
+                    widget.tipo != "emoji" ? "Cor e tamanho" : "Tamanho",
                     style: TextStyle(fontSize: 18),
                   )),
                   Align(
