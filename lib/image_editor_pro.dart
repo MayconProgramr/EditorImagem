@@ -195,127 +195,131 @@ class _ImageEditorProState extends State<ImageEditorPro> {
           ],
           backgroundColor: widget.appBarColor,
         ),
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Flexible(
-            child: Material(
-              clipBehavior: Clip.hardEdge,
-              color: Colors.transparent,
-              child: Screenshot(
-                controller: screenshotController,
-                child: Stack(
-                  alignment: AlignmentDirectional.topStart,
-                  children: <Widget>[
-                    widget.defaultImage != null
-                        ? Image.file(
-                            widget.defaultImage,
-                            //fit: BoxFit.cover,
-                          )
-                        : Image.asset("assets/capa25463.jpeg"),
-                    Positioned.fill(
-                      child: RepaintBoundary(
-                        key: globalKey,
-                        child: Center(
-                            child: GestureDetector(
-                                onPanUpdate: (DragUpdateDetails details) {
-                                  setState(() {
-                                    RenderBox object =
-                                        context.findRenderObject();
-                                    Offset _localPosition = object
-                                        .globalToLocal(details.globalPosition);
-                                    _points = new List.from(_points)
-                                      ..add(_localPosition);
-                                  });
-                                },
-                                onPanEnd: (DragEndDetails details) {
-                                  _points.add(null);
-                                },
-                                child: Signature(
-                                  controller: _controller,
-                                  backgroundColor:
-                                      Colors.transparent, // _colorSig
-                                ))),
-                      ),
-                    ),
-                    /*TextButton(
-                      child: Text('teste'),
-                      onPressed: () {
-                        setState(() {
-                          if (!_changeColor) {
-                            _colorSig = Colors.blueAccent.withOpacity(0.3);
-                          } else {
-                            _colorSig = Colors.orangeAccent.withOpacity(0.3);
-                          }
-                          _changeColor = !_changeColor;
-                        });
-                      }),*/
-                    Positioned.fill(
-                      child: Stack(
-                        children: multiwidget.asMap().entries.map((f) {
-                          return type[f.key] == 1
-                              ? EmojiView(
-                                  left: offsets[f.key].dx + 20,
-                                  top: offsets[f.key].dy + 20,
-                                  ontap: () {
-                                    scaf.currentState
-                                        .showBottomSheet((context) {
-                                      return Sliders(
-                                        size: f.key,
-                                        sizevalue: fontsize[f.key].toDouble(),
-                                        tipo: "emoji",
-                                      );
-                                    });
-                                    setState(() {});
-                                  },
-                                  onpanupdate: (details) {
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            Flexible(
+              child: Material(
+                clipBehavior: Clip.hardEdge,
+                color: Colors.transparent,
+                child: Screenshot(
+                  controller: screenshotController,
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: <Widget>[
+                      widget.defaultImage != null
+                          ? Image.file(
+                              widget.defaultImage,
+                              //fit: BoxFit.cover,
+                            )
+                          : Image.asset("assets/capa25463.jpeg"),
+                      Positioned.fill(
+                        child: RepaintBoundary(
+                          key: globalKey,
+                          child: Center(
+                              child: GestureDetector(
+                                  onPanUpdate: (DragUpdateDetails details) {
                                     setState(() {
-                                      offsets[f.key] = Offset(
-                                          offsets[f.key].dx + details.delta.dx,
-                                          offsets[f.key].dy + details.delta.dy);
+                                      RenderBox object =
+                                          context.findRenderObject();
+                                      Offset _localPosition = object
+                                          .globalToLocal(details.globalPosition);
+                                      _points = new List.from(_points)
+                                        ..add(_localPosition);
                                     });
                                   },
-                                  value: f.value.toString(),
-                                  fontsize: fontsize[f.key].toDouble(),
-                                  align: TextAlign.center,
-                                )
-                              : type[f.key] == 2
-                                  ? TextView(
-                                      left: offsets[f.key].dx + 20,
-                                      top: offsets[f.key].dy + 20,
-                                      ontap: () {
-                                        scaf.currentState
-                                            .showBottomSheet((context) {
-                                          return Sliders(
-                                            size: f.key,
-                                            sizevalue:
-                                                fontsize[f.key].toDouble(),
-                                            tipo: "texto",
-                                          );
-                                        });
-                                      },
-                                      onpanupdate: (details) {
-                                        setState(() {
-                                          offsets[f.key] = Offset(
-                                              offsets[f.key].dx +
-                                                  details.delta.dx,
-                                              offsets[f.key].dy +
-                                                  details.delta.dy);
-                                        });
-                                      },
-                                      value: f.value.toString(),
-                                      fontsize: fontsize[f.key].toDouble(),
-                                      align: TextAlign.center,
-                                      fontColor: fontColor[f.key],
-                                    )
-                                  : Container();
-                        }).toList(),
+                                  onPanEnd: (DragEndDetails details) {
+                                    _points.add(null);
+                                  },
+                                  child: Signature(
+                                    controller: _controller,
+                                    backgroundColor:
+                                        Colors.transparent, // _colorSig
+                                  ))),
+                        ),
                       ),
-                    ),
-                  ],
+                      /*TextButton(
+                        child: Text('teste'),
+                        onPressed: () {
+                          setState(() {
+                            if (!_changeColor) {
+                              _colorSig = Colors.blueAccent.withOpacity(0.3);
+                            } else {
+                              _colorSig = Colors.orangeAccent.withOpacity(0.3);
+                            }
+                            _changeColor = !_changeColor;
+                          });
+                        }),*/
+                      Positioned.fill(
+                        child: Stack(
+                          children: multiwidget.asMap().entries.map((f) {
+                            return type[f.key] == 1
+                                ? EmojiView(
+                                    left: offsets[f.key].dx + 20,
+                                    top: offsets[f.key].dy + 20,
+                                    ontap: () {
+                                      scaf.currentState
+                                          .showBottomSheet((context) {
+                                        return Sliders(
+                                          size: f.key,
+                                          sizevalue: fontsize[f.key].toDouble(),
+                                          tipo: "emoji",
+                                        );
+                                      });
+                                      setState(() {});
+                                    },
+                                    onpanupdate: (details) {
+                                      setState(() {
+                                        offsets[f.key] = Offset(
+                                            offsets[f.key].dx + details.delta.dx,
+                                            offsets[f.key].dy + details.delta.dy);
+                                      });
+                                    },
+                                    value: f.value.toString(),
+                                    fontsize: fontsize[f.key].toDouble(),
+                                    align: TextAlign.center,
+                                  )
+                                : type[f.key] == 2
+                                    ? TextView(
+                                        left: offsets[f.key].dx + 20,
+                                        top: offsets[f.key].dy + 20,
+                                        ontap: () {
+                                          scaf.currentState
+                                              .showBottomSheet((context) {
+                                            return Sliders(
+                                              size: f.key,
+                                              sizevalue:
+                                                  fontsize[f.key].toDouble(),
+                                              tipo: "texto",
+                                            );
+                                          });
+                                        },
+                                        onpanupdate: (details) {
+                                          setState(() {
+                                            offsets[f.key] = Offset(
+                                                offsets[f.key].dx +
+                                                    details.delta.dx,
+                                                offsets[f.key].dy +
+                                                    details.delta.dy);
+                                          });
+                                        },
+                                        value: f.value.toString(),
+                                        fontsize: fontsize[f.key].toDouble(),
+                                        align: TextAlign.center,
+                                        fontColor: fontColor[f.key],
+                                      )
+                                    : Container();
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
         bottomNavigationBar: openbottomsheet
             ? Container()
             : Container(
