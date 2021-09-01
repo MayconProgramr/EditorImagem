@@ -64,7 +64,6 @@ class _EmojiesState extends State<Emojies> {
                           child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context, emoji);
-                          setState(() {});
                         },
                         child: Container(
                           child: Text(
