@@ -950,7 +950,7 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
             pickerColor: pickerColor,
             onColorChanged: changeColor,
             showLabel: false,
-            pickerAreaHeightPercent: 0.8,
+            pickerAreaHeightPercent: 0.4,
           ),
           Slider(
             value: sliderDiscreteValue,
