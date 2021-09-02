@@ -7,12 +7,12 @@ class Emojies extends StatefulWidget {
 }
 
 class _EmojiesState extends State<Emojies> {
-  List emojes = List();
+  List emojes = [];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 400,        
+        height: MediaQuery.of(context).size.height * 0.6,
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [BoxShadow(blurRadius: 10.9, color: Colors.grey[400])]),
@@ -51,7 +51,7 @@ class _EmojiesState extends State<Emojies> {
               height: 10,
             ),
             Container(
-              height: 315,
+              height: MediaQuery.of(context).size.height * 0.45,
               child: GridView(
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
