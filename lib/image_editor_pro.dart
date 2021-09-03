@@ -259,14 +259,17 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                     left: offsets[f.key].dx + 20,
                                     top: offsets[f.key].dy + 20,
                                     ontap: () {
-                                      scaf.currentState
-                                          .showBottomSheet((context) {
-                                        return Sliders(
-                                          size: f.key,
-                                          sizevalue: fontsize[f.key].toDouble(),
-                                          tipo: "emoji",
-                                        );
-                                      });
+                                       showModalBottomSheet(
+                                          context: context,
+                                          isDismissible: false,
+                                          enableDrag: false,
+                                          builder: (ctx) {
+                                            return Sliders(
+                                              size: f.key,
+                                              sizevalue: fontsize[f.key].toDouble(),
+                                              tipo: "emoji",
+                                            );
+                                        });
                                       setState(() {});
                                     },
                                     onpanupdate: (details) {
@@ -285,14 +288,17 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                         left: offsets[f.key].dx + 20,
                                         top: offsets[f.key].dy + 20,
                                         ontap: () {
-                                          scaf.currentState
-                                              .showBottomSheet((context) {
-                                            return Sliders(
-                                              size: f.key,
-                                              sizevalue:
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isDismissible: false,
+                                            enableDrag: false,
+                                            builder: (ctx) {
+                                              return Sliders(
+                                                size: f.key,
+                                                sizevalue:
                                                   fontsize[f.key].toDouble(),
-                                              tipo: "texto",
-                                            );
+                                                tipo: "texto",
+                                              );
                                           });
                                         },
                                         onpanupdate: (details) {
