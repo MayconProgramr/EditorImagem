@@ -69,7 +69,7 @@ class _TextEditorState extends State<TextEditor> {
                   ),        
                   child: new Text("Adicionar Texto",style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 22,
+                    fontSize: 18,
                     color: Colors.white
                   ),)),
               )
