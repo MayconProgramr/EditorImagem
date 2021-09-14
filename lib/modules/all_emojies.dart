@@ -79,10 +79,9 @@ class _EmojiesState extends State<Emojies> {
         ));
   }
 
-  List<String> emojis = new List();
+  List<String> emojis = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     emojis = getSmileys();
   }

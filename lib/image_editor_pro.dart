@@ -3,13 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_editor_pro/modules/all_emojies.dart';
-import 'package:image_editor_pro/modules/bottombar_container.dart';
 import 'package:image_editor_pro/modules/colors_picker.dart';
 import 'package:image_editor_pro/modules/emoji.dart';
 import 'package:image_editor_pro/modules/text.dart';
@@ -36,7 +34,6 @@ Color currentColor = Color(0xffB22222);
 
 SignatureController _controller =
     SignatureController(penStrokeWidth: widthPen, penColor: Color(0xffB22222));
-ScrollController _controllerSize;
 
 class _SliderIndicatorPainter extends CustomPainter {
   final double position;
@@ -128,7 +125,6 @@ class _ImageEditorProState extends State<ImageEditorPro> {
   @override
   void dispose() {
     timeprediction.cancel();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -144,7 +140,6 @@ class _ImageEditorProState extends State<ImageEditorPro> {
     multiwidget.clear();
     howmuchwidgetis = 0;
     sliderDiscreteValue = 5;
-    // TODO: implement initState
   }
 
   var _colorSig = Colors.orangeAccent.withOpacity(0.3);
@@ -232,10 +227,15 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                   onPanEnd: (DragEndDetails details) {
                                     _points.add(null);
                                   },
-                                  child: Signature(
-                                    controller: _controller,
-                                    backgroundColor:
-                                        Colors.transparent, // _colorSig
+                                  child: Flex(
+                                    direction: Axis.horizontal,
+                                    children: [
+                                      Signature(
+                                        controller: _controller,
+                                        backgroundColor:
+                                            Colors.transparent, // _colorSig
+                                      ),
+                                    ],
                                   ))),
                         ),
                       ),
@@ -352,53 +352,6 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                       ),
                       onPressed: () {
                         _showFontSizePickerDialog();
-                        /*showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Selecione uma cor'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    ColorPicker(
-                                      pickerColor: pickerColor,
-                                      onColorChanged: changeColor,
-                                      showLabel: false,
-                                      pickerAreaHeightPercent: 0.8,
-                                    ),
-                                    Slider(
-                                        value: sliderDiscreteValue,
-                                        min: 0,
-                                        max: 100,
-                                        divisions: 5,
-                                        label: sliderDiscreteValue.round().toString(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            sliderDiscreteValue = value;
-                                          });
-                                          print('tamanho: ${sliderDiscreteValue}');
-                                        },
-                                      ),
-                                  ],
-                                )
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text('Ok'),
-                                  onPressed: () {
-                                    setState((){
-                                      widthPen = 1.0;
-                                      currentColor = pickerColor;                                      
-                                      var points = _controller.points;
-    _controller =
-        SignatureController(penStrokeWidth: widthPen, penColor: currentColor, points: points);
-                                    });
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          });*/
                       },
                     ),
                     TextButton(
@@ -673,7 +626,6 @@ class _SlidersState extends State<Sliders> {
   @override
   void initState() {
     slider = widget.sizevalue;
-    // TODO: implement initState
 
     _currentColor = _calculateSelectedColor(_colorSliderPosition);
     _shadeSliderPosition = 0; //widget.width / 2; //center the shader selector

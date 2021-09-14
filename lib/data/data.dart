@@ -1,6 +1,6 @@
 List<String> getSmileys(){
 
-  List<String> emojis = new List();
+  List<String> emojis = [];
   String emoji;
 
   emoji = "😀";
