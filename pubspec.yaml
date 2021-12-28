@@ -15,11 +15,11 @@ dependencies:
   font_awesome_flutter: ^8.7.0
   image_picker: ^0.7.4
   path_provider: ^2.0.2
-  image_gallery_saver: ^1.2.2
-  permission_handler: ^4.2.0+hotfix.3
+  image_gallery_saver: ^1.6.8
+  permission_handler: ^5.1.0+2
   screenshot: ^1.1.0
   signature: ^4.0.0
-  flutter_colorpicker: ^0.3.2
+  flutter_colorpicker: ^0.3.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
