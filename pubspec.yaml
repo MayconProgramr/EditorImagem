@@ -5,21 +5,18 @@ author: zeeshux7860,theindianappguy
 homepage:
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.3
-  zoom_widget: ^0.1.3
-  font_awesome_flutter: ^8.7.0
-  image_picker: ^0.7.4
-  path_provider: ^2.0.2
-  image_gallery_saver: ^1.6.8
-  permission_handler: ^5.1.0+2
-  screenshot: ^1.1.0
-  signature: ^4.0.0
-  flutter_colorpicker: ^0.3.5
+  font_awesome_flutter: ^9.2.0
+  image_picker: ^0.8.4+4
+  path_provider: ^2.0.8
+  screenshot: ^1.2.3
+  signature: ^5.0.0
+  flutter_colorpicker: ^1.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

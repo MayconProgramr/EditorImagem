@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,12 +33,12 @@ SignatureController _controller =
     SignatureController(penStrokeWidth: widthPen, penColor: Color(0xffB22222));
 
 class _SliderIndicatorPainter extends CustomPainter {
-  final double position;
+  final double? position;
   _SliderIndicatorPainter(this.position);
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawCircle(
-        Offset(position, size.height / 2), 15, Paint()..color = Colors.black);
+        Offset(position!, size.height / 2), 15, Paint()..color = Colors.black);
   }
 
   @override
@@ -51,11 +48,11 @@ class _SliderIndicatorPainter extends CustomPainter {
 }
 
 class ImageEditorPro extends StatefulWidget {
-  final Color appBarColor;
-  final Color bottomBarColor;
-  final File defaultImage;
-  final Directory pathSave;
-  final String nameSave;
+  final Color? appBarColor;
+  final Color? bottomBarColor;
+  final File? defaultImage;
+  final Directory? pathSave;
+  final String? nameSave;
   final Color backgroundScaffold;
 
   ImageEditorPro({
@@ -71,7 +68,7 @@ class ImageEditorPro extends StatefulWidget {
   _ImageEditorProState createState() => _ImageEditorProState();
 }
 
-var slider = 0.0;
+double? slider = 0.0;
 
 class _ImageEditorProState extends State<ImageEditorPro> {
   // create some values
@@ -105,15 +102,15 @@ class _ImageEditorProState extends State<ImageEditorPro> {
   Offset offset2 = Offset.zero;
   final scaf = GlobalKey<ScaffoldState>();
   var openbottomsheet = false;
-  List<Offset> _points = <Offset>[];
+  List<Offset?> _points = <Offset?>[];
   List type = [];
   List aligment = [];
-  File _imageFile;
+  File? _imageFile;
   final _sizeImage = GlobalKey();
   final GlobalKey globalKey = new GlobalKey();
-  File _image;
+  File? _image;
   ScreenshotController screenshotController = ScreenshotController();
-  Timer timeprediction;
+  late Timer timeprediction;
 
   void timers() {
     Timer.periodic(Duration(milliseconds: 10), (tim) {
@@ -180,7 +177,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     final file =
                         await File('${paths.path}/' + name.toString() + '.jpg')
                             .create();
-                    file.writeAsBytesSync(binaryIntList);
+                    file.writeAsBytesSync(binaryIntList!);
 
                     Navigator.pop(context, file);
                   }).catchError((onError) {
@@ -205,7 +202,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     children: <Widget>[
                       widget.defaultImage != null
                           ? Image.file(
-                              widget.defaultImage,
+                              widget.defaultImage!,
                               //fit: BoxFit.cover,
                             )
                           : Image.asset("assets/capa25463.jpeg"),
@@ -217,7 +214,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                   onPanUpdate: (DragUpdateDetails details) {
                                     setState(() {
                                       RenderBox object =
-                                          context.findRenderObject();
+                                          context.findRenderObject() as RenderBox;
                                       Offset _localPosition = object
                                           .globalToLocal(details.globalPosition);
                                       _points = new List.from(_points)
@@ -230,10 +227,12 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                                   child: Flex(
                                     direction: Axis.horizontal,
                                     children: [
-                                      Signature(
-                                        controller: _controller,
-                                        backgroundColor:
-                                            Colors.transparent, // _colorSig
+                                      Expanded(
+                                        child: Signature(
+                                          controller: _controller,
+                                          backgroundColor:
+                                              Colors.transparent, // _colorSig
+                                        ),
                                       ),
                                     ],
                                   ))),
@@ -466,7 +465,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
       builder: (BuildContext context) {
         return new Container(
           decoration: BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(blurRadius: 10.9, color: Colors.grey[400])
+            BoxShadow(blurRadius: 10.9, color: Colors.grey[400]!)
           ]),
           height: 170,
           child: new Column(
@@ -493,11 +492,10 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                               IconButton(
                                   icon: Icon(Icons.photo_library),
                                   onPressed: () async {
-                                    var image = await picker.getImage(
-                                        source: ImageSource.camera);
+                                    var image = await picker.pickImage(source: ImageSource.camera);
                                     var decodedImage =
                                         await decodeImageFromList(
-                                            File(image.path).readAsBytesSync());
+                                            File(image!.path).readAsBytesSync());
 
                                     setState(() {
                                       height = decodedImage.height as double;
@@ -523,10 +521,10 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                             IconButton(
                                 icon: Icon(Icons.camera_alt),
                                 onPressed: () async {
-                                  var image = await picker.getImage(
+                                  var image = await picker.pickImage(
                                       source: ImageSource.gallery);
                                   var decodedImage = await decodeImageFromList(
-                                      File(image.path).readAsBytesSync());
+                                      File(image!.path).readAsBytesSync());
 
                                   setState(() {
                                     height = decodedImage.height as double;
@@ -588,13 +586,13 @@ class _SignatState extends State<Signat> {
 }
 
 class Sliders extends StatefulWidget {
-  final int size;
+  final int? size;
   final sizevalue;
-  final String tipo;
+  final String? tipo;
   final double width;
 
   const Sliders(
-      {Key key, this.size, this.sizevalue, this.tipo, this.width = 300})
+      {Key? key, this.size, this.sizevalue, this.tipo, this.width = 300})
       : super(key: key);
 
   @override
@@ -619,9 +617,9 @@ class _SlidersState extends State<Sliders> {
   ];
 
   double _colorSliderPosition = 0;
-  double _shadeSliderPosition;
-  Color _currentColor;
-  Color _shadedColor;
+  double? _shadeSliderPosition;
+  Color? _currentColor;
+  Color? _shadedColor;
 
   @override
   void initState() {
@@ -629,7 +627,7 @@ class _SlidersState extends State<Sliders> {
 
     _currentColor = _calculateSelectedColor(_colorSliderPosition);
     _shadeSliderPosition = 0; //widget.width / 2; //center the shader selector
-    _shadedColor = _calculateShadedColor(_shadeSliderPosition);
+    _shadedColor = _calculateShadedColor(_shadeSliderPosition!);
 
     super.initState();
   }
@@ -646,8 +644,8 @@ class _SlidersState extends State<Sliders> {
     setState(() {
       _colorSliderPosition = position;
       _currentColor = _calculateSelectedColor(_colorSliderPosition);
-      _shadedColor = _calculateShadedColor(_shadeSliderPosition);
-      fontColor[widget.size] = _shadedColor;
+      _shadedColor = _calculateShadedColor(_shadeSliderPosition!);
+      fontColor[widget.size!] = _shadedColor;
     });
   }
 
@@ -657,42 +655,42 @@ class _SlidersState extends State<Sliders> {
     if (position < 0) position = 0;
     setState(() {
       _shadeSliderPosition = position;
-      _shadedColor = _calculateShadedColor(_shadeSliderPosition);
-      fontColor[widget.size] = _shadedColor;
+      _shadedColor = _calculateShadedColor(_shadeSliderPosition!);
+      fontColor[widget.size!] = _shadedColor;
       //print("r: ${_shadedColor.red}, g: ${_shadedColor.green}, b: ${_shadedColor.blue}");
     });
   }
 
-  Color _calculateShadedColor(double position) {
+  Color? _calculateShadedColor(double position) {
     double ratio = position / widget.width;
     if (ratio > 0.5) {
       //Calculate new color (values converge to 255 to make the color lighter)
-      int redVal = _currentColor.red != 255
-          ? (_currentColor.red +
-                  (255 - _currentColor.red) * (ratio - 0.5) / 0.5)
+      int redVal = _currentColor!.red != 255
+          ? (_currentColor!.red +
+                  (255 - _currentColor!.red) * (ratio - 0.5) / 0.5)
               .round()
           : 255;
-      int greenVal = _currentColor.green != 255
-          ? (_currentColor.green +
-                  (255 - _currentColor.green) * (ratio - 0.5) / 0.5)
+      int greenVal = _currentColor!.green != 255
+          ? (_currentColor!.green +
+                  (255 - _currentColor!.green) * (ratio - 0.5) / 0.5)
               .round()
           : 255;
-      int blueVal = _currentColor.blue != 255
-          ? (_currentColor.blue +
-                  (255 - _currentColor.blue) * (ratio - 0.5) / 0.5)
+      int blueVal = _currentColor!.blue != 255
+          ? (_currentColor!.blue +
+                  (255 - _currentColor!.blue) * (ratio - 0.5) / 0.5)
               .round()
           : 255;
       return Color.fromARGB(255, redVal, greenVal, blueVal);
     } else if (ratio < 0.5) {
       //Calculate new color (values converge to 0 to make the color darker)
-      int redVal = _currentColor.red != 0
-          ? (_currentColor.red * ratio / 0.5).round()
+      int redVal = _currentColor!.red != 0
+          ? (_currentColor!.red * ratio / 0.5).round()
           : 0;
-      int greenVal = _currentColor.green != 0
-          ? (_currentColor.green * ratio / 0.5).round()
+      int greenVal = _currentColor!.green != 0
+          ? (_currentColor!.green * ratio / 0.5).round()
           : 0;
-      int blueVal = _currentColor.blue != 0
-          ? (_currentColor.blue * ratio / 0.5).round()
+      int blueVal = _currentColor!.blue != 0
+          ? (_currentColor!.blue * ratio / 0.5).round()
           : 0;
       return Color.fromARGB(255, redVal, greenVal, blueVal);
     } else {
@@ -701,7 +699,7 @@ class _SlidersState extends State<Sliders> {
     }
   }
 
-  Color _calculateSelectedColor(double position) {
+  Color? _calculateSelectedColor(double position) {
     //determine color
     double positionInColorArray =
         (position / widget.width * (_colors.length - 1));
@@ -766,7 +764,7 @@ class _SlidersState extends State<Sliders> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
-                          fontsize[widget.size] = 0;
+                          fontsize[widget.size!] = 0;
                         });
                         Navigator.of(context).pop();
                       },
@@ -801,7 +799,7 @@ class _SlidersState extends State<Sliders> {
                           height: 15,
                           decoration: BoxDecoration(
                             border:
-                                Border.all(width: 1, color: Colors.grey[800]),
+                                Border.all(width: 1, color: Colors.grey[800]!),
                             borderRadius: BorderRadius.circular(15),
                             gradient: LinearGradient(colors: _colors),
                           ),
@@ -835,11 +833,11 @@ class _SlidersState extends State<Sliders> {
                           height: 15,
                           decoration: BoxDecoration(
                             border:
-                                Border.all(width: 1, color: Colors.grey[800]),
+                                Border.all(width: 1, color: Colors.grey[800]!),
                             borderRadius: BorderRadius.circular(15),
                             gradient: LinearGradient(colors: [
                               Colors.black,
-                              _currentColor,
+                              _currentColor!,
                               Colors.white
                             ]),
                           ),
@@ -863,18 +861,18 @@ class _SlidersState extends State<Sliders> {
             ,
             SizedBox(height: 20),
             Slider(
-                value: slider,
+                value: slider!,
                 min: 0.0,
                 max: 100.0,
                 onChangeEnd: (v) {
                   setState(() {
-                    fontsize[widget.size] = v.toInt();
+                    fontsize[widget.size!] = v.toInt();
                   });
                 },
                 onChanged: (v) {
                   setState(() {
                     slider = v;
-                    fontsize[widget.size] = v.toInt();
+                    fontsize[widget.size!] = v.toInt();
                   });
                 }),
           ],
@@ -883,7 +881,7 @@ class _SlidersState extends State<Sliders> {
 }
 
 class FontSizePickerDialog extends StatefulWidget {
-  const FontSizePickerDialog({Key key}) : super(key: key);
+  const FontSizePickerDialog({Key? key}) : super(key: key);
 
   @override
   _FontSizePickerDialogState createState() => _FontSizePickerDialogState();

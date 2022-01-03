@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class TextEditor extends StatefulWidget {
 
-  final Color appBarColor;
-  final Color bottomColor;
+  final Color? appBarColor;
+  final Color? bottomColor;
 
   TextEditor({this.appBarColor, this.bottomColor});
 

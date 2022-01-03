@@ -15,7 +15,7 @@ class _EmojiesState extends State<Emojies> {
         height: MediaQuery.of(context).size.height * 0.6,
         decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: [BoxShadow(blurRadius: 10.9, color: Colors.grey[400])]),
+            boxShadow: [BoxShadow(blurRadius: 10.9, color: Colors.grey[400]!)]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[

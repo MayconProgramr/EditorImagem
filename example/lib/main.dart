@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<void> getimageditor()  {
+  Future<void> getimageditor()  async {
     final geteditimage =   Navigator.push(context, MaterialPageRoute(
         builder: (context){
           return ImageEditorPro(
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     }).catchError((er){print(er);});
 
   }
-  File _image;
+  File? _image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
 
       )
           : Center(
-        child: Image.file(_image),
+        child: Image.file(_image!),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.close),
