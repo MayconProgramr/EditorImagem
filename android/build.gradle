@@ -22,7 +22,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 31
+    namespace = "zeeshux7860.theindianappguy.image_editor_pro_example"
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 28

@@ -10,64 +10,59 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage()
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
   }
 }
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<void> getimageditor()  async {
-    final geteditimage =   Navigator.push(context, MaterialPageRoute(
-        builder: (context){
-          return ImageEditorPro(
-            appBarColor: Colors.blue,
-            bottomBarColor: Colors.blue,
-          );
-        }
-    )).then((geteditimage){
-      if(geteditimage != null){
+  Future<void> getimageditor() async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ImageEditorPro(
+        appBarColor: Colors.blue,
+        bottomBarColor: Colors.blue,
+      );
+    })).then((geteditimage) {
+      if (geteditimage != null) {
         setState(() {
-          _image =  geteditimage;
+          _image = geteditimage;
         });
       }
-    }).catchError((er){print(er);});
-
+    }).catchError((er) {
+      print(er);
+    });
   }
+
   File? _image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Editor de Imagem'),
-
       ),
-      body: _image == null ?
-      Center(
-        child:  ElevatedButton(onPressed: (){
-          getimageditor();
-
-        },child: new Text("Abrir editor"),),
-
-      )
+      body: _image == null
+          ? Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  getimageditor();
+                },
+                child: new Text("Abrir editor"),
+              ),
+            )
           : Center(
-        child: Image.file(_image!),
-      ),
+              child: Image.file(_image!),
+            ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.close),
-        onPressed: (){
+        onPressed: () {
           _image = null;
-          setState(() {
-
-          });
+          setState(() {});
         },
       ),
     );
