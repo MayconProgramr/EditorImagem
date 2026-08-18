@@ -339,7 +339,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     TextButton(
                       child: Column(
                         children: [
-                          Icon(
+                          FaIcon(
                             FontAwesomeIcons.brush,
                             color: Colors.white,
                           ),
@@ -389,7 +389,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     TextButton(
                       child: Column(
                         children: [
-                          Icon(
+                          FaIcon(
                             FontAwesomeIcons.smile,
                             color: Colors.white,
                           ),
@@ -422,7 +422,7 @@ class _ImageEditorProState extends State<ImageEditorPro> {
                     TextButton(
                       child: Column(
                         children: [
-                          Icon(
+                          FaIcon(
                             FontAwesomeIcons.eraser,
                             color: Colors.white,
                           ),
